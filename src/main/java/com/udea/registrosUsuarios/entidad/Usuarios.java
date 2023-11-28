@@ -22,6 +22,9 @@ public class Usuarios {
     @Column
     private String rolEmpresa;
 
+    @Column
+    private boolean usuarioDisponible;
+
     public Integer getId() {
         return id;
     }
@@ -69,5 +72,13 @@ public class Usuarios {
     public void setRolEmpresa(String rolEmpresa) {
         this.rolEmpresa = rolEmpresa;
     }
+
+    public boolean isUsuarioDisponible() {
+        return usuarioDisponible;
+    }
+
+    public void setUsuarioDisponible(boolean usuarioDisponible) {
+        this.usuarioDisponible = usuarioDisponible;
+    }
 }
-//enfoque resfull
+

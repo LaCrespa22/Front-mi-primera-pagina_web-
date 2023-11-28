@@ -2,7 +2,6 @@ package com.udea.registrosUsuarios.servicios;
 
 import com.udea.registrosUsuarios.entidad.Usuarios;
 import com.udea.registrosUsuarios.repositorio.usuariosRepositorio;
-import jakarta.persistence.Id;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,16 +34,18 @@ public class usuariosServicios {
         return usuariosRepository.saveAll(usuarios);
     }
 
-    public Usuarios updateusuarios(Usuarios usuarios){
+    public void updateusuarios(Usuarios usuarios){
 
         Usuarios existeUsuario = usuariosRepository.findById(usuarios.getId()).orElse(null );
+        assert existeUsuario != null;
         existeUsuario.setNombreUsuario(usuarios.getNombreUsuario());
         existeUsuario.setEdad(usuarios.getEdad());
         existeUsuario.setNumeroTelefono(usuarios.getNumeroTelefono());
         existeUsuario.setCorreoElectronico(usuarios.getCorreoElectronico());
         existeUsuario.setRolEmpresa(usuarios.getRolEmpresa());
+        existeUsuario.setUsuarioDisponible(usuarios.isUsuarioDisponible());
 
-        return usuariosRepository.save(existeUsuario);
+        usuariosRepository.save(existeUsuario);
 
     }
 
@@ -54,8 +55,18 @@ public class usuariosServicios {
 
     }
 
+    public boolean markUsuarioDisponible(Integer id){
+        Usuarios usuarios = usuariosRepository.findById(id).orElse(null);
+        if (usuarios != null){
+            usuarios.setUsuarioDisponible(true);
+            usuariosRepository.save(usuarios);
+            return true;
+        }else{
+            return false;
+        }
+
+
+    }
 
 
 }
-
-
